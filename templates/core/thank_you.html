@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+<h2>Thank You</h2>
+<p>Your request has been submitted. An admin will review it soon.</p>
+<a href="{% url 'login' %}" class="btn btn-primary">Go to Login</a>
+{% endblock %}

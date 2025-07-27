@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Course{% endblock %}
+
+{% block content %}
+<h2>Create Course</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.course_name.id_for_label }}">Course Name:</label>
+        {{ form.course_name }}
+        {% if form.course_name.errors %}
+            <div class="text-danger">{{ form.course_name.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.program.id_for_label }}">Program:</label>
+        {{ form.program }}
+        {% if form.program.errors %}
+            <div class="text-danger">{{ form.program.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.day_of_week.id_for_label }}">Day of Week:</label>
+        {{ form.day_of_week }}
+        {% if form.day_of_week.errors %}
+            <div class="text-danger">{{ form.day_of_week.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.start_time.id_for_label }}">Start Time:</label>
+        {{ form.start_time }}
+        {% if form.start_time.errors %}
+            <div class="text-danger">{{ form.start_time.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.end_time.id_for_label }}">End Time:</label>
+        {{ form.end_time }}
+        {% if form.end_time.errors %}
+            <div class="text-danger">{{ form.end_time.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.semester.id_for_label }}">Semester:</label>
+        {{ form.semester }}
+        {% if form.semester.errors %}
+            <div class="text-danger">{{ form.semester.errors }}</div>
+        {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Create Course</button>
+</form>
+
+<script>
+    $(document).ready(function() {
+        $('#{{ form.start_time.id_for_label }}').timepicker({
+            showMeridian: false,
+            minuteStep: 5,
+            defaultTime: '08:00'
+        });
+        $('#{{ form.end_time.id_for_label }}').timepicker({
+            showMeridian: false,
+            minuteStep: 5,
+            defaultTime: '09:00'
+        });
+    });
+</script>
+{% endblock %}

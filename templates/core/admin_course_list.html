@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Course List{% endblock %}
+
+{% block content %}
+<h2>Course List</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Program</th>
+            <th>Day of Week</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Semester</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for course in courses %}
+        <tr>
+            <td>{{ course.course_name }}</td>
+            <td>{{ course.program.program_name }}</td>
+            <td>{{ course.day_of_week }}</td>
+            <td>{{ course.start_time }}</td>
+            <td>{{ course.end_time }}</td>
+            <td>{{ course.semester }}</td>
+            <td>
+                <a href="{% url 'upload_document' course.id %}" class="btn btn-primary btn-sm">Upload Document</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+{% endblock %}

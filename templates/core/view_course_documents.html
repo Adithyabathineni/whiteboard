@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Documents for {{ course.course_name }}{% endblock %}
+
+{% block content %}
+<h2>Documents for {{ course.course_name }}</h2>
+{% if documents %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Document</th>
+            <th>Uploaded At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for doc in documents %}
+        <tr>
+            <td>
+                <a href="{{ doc.document.url }}" target="_blank">{{ doc.document.name }}</a>
+            </td>
+            <td>{{ doc.uploaded_at }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No documents available for this course.</p>
+{% endif %}
+<a href="{% url 'student_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+{% endblock %}

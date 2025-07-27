@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Document for {{ course.course_name }}{% endblock %}
+
+{% block content %}
+<h2>Upload Document for {{ course.course_name }}</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="document">Select Document:</label>
+        <input type="file" name="document" id="document" class="form-control-file" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+    <a href="{% url 'course_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

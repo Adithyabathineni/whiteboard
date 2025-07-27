@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Whiteboard {% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'student_dashboard' %}">Whiteboard</a>
+        <div class="navbar-nav">
+            {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                    <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
+                    <a class="nav-link" href="{% url 'student_request_list' %}">Student Requests</a>
+                    <a class="nav-link" href="{% url 'create_course' %}">Create Course</a>
+                    <a class="nav-link" href="{% url 'create_program' %}">Create Program</a>
+                    <a class="nav-link" href="{% url 'admin_course_list' %}">Course List</a>
+                    <a class="nav-link" href="{% url 'update_grades' %}">Update Grades</a>
+                    <a class="nav-link" href="{% url 'reset_student_password' %}">Reset Password</a>
+                {% else %}
+                    <a class="nav-link" href="{% url 'student_dashboard' %}">Dashboard</a>
+                    <a class="nav-link" href="{% url 'register_program' %}">Register Program</a>
+                    <a class="nav-link" href="{% url 'courses' %}">Courses</a>
+                    <a class="nav-link" href="{% url 'timetable' %}">Timetable</a>
+                    <a class="nav-link" href="{% url 'grades' %}">Grades</a>
+                    <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                {% endif %}
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-link" href="{% url 'student_request' %}">Request Account</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+</body>
+</html>

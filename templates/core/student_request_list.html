@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Requests{% endblock %}
+
+{% block content %}
+<h2>Student Requests</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username (Preview)</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date of Birth</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in request_data %}
+        <tr>
+            <td>{{ data.request.first_name }}</td>
+            <td>{{ data.request.last_name }}</td>
+            <td>
+                {{ data.preview_username }}
+                {% if data.is_duplicate %}
+                    <small class="text-muted">(Duplicate - a random suffix will be added)</small>
+                {% endif %}
+            </td>
+            <td>{{ data.request.email }}</td>
+            <td>{{ data.request.phone }}</td>
+            <td>{{ data.request.date_of_birth }}</td>
+            <td>{{ data.request.address }}</td>
+            <td>
+                <form method="post" action="{% url 'approve_reject_request' data.request.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="approve">
+                    <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                </form>
+                <form method="post" action="{% url 'approve_reject_request' data.request.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="reject">
+                    <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

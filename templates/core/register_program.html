@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Register for a Program{% endblock %}
+
+{% block content %}
+<h2>Register for a Program</h2>
+<p>Please select a program to register for. You will be automatically enrolled in all courses within the program.</p>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="program">Program:</label>
+        <select name="program" id="program" class="form-control" required>
+            <option value="" disabled selected>Select a program</option>
+            {% for program in programs %}
+                <option value="{{ program.id }}">{{ program.program_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+{% endblock %}
