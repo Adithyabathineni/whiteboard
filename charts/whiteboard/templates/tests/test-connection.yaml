@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "whiteboard.fullname" . }}-test-connection"
+  labels:
+    {{- include "whiteboard.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "whiteboard.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
