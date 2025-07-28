@@ -10,3 +10,6 @@ service:
   port: 8000
 
 resources: {}
+serviceAccount:
+  create: true
+  name: ""
